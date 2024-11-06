@@ -13,39 +13,97 @@
 
       
     <div class="Fantasy">
-          def fantasy_quiz():
-    print("Fantasy Books")
-    print("Answer the following questions to determine how much you like fantasy books.\n")
+            <form id="quizForm">
+        <div class="question">
+            <label>1. Do you enjoy reading about magical creatures like dragons, elves, and unicorns?</label><br>
+            <input type="radio" name="q1" value="yes"> Yes
+            <input type="radio" name="q1" value="no"> No
+        </div>
 
-    questions = [
-        ("Do you enjoy reading about magical creatures like dragons, elves, and unicorns? (yes/no): ", 1),
-        ("Do you enjoy books with magic and/or supernatural events? (yes/no): ", 1),
-        ("Would you be interested in reading about mystical adventures and quests? (yes/no): ", 1),
-        ("Do you enjoy reading books with heroes who are often ‘chosen ones’ or have special abilities? (yes/no): ", 1)
-    ]
-    
-    total_questions = len(questions)
-    positive_answers = 0
+        <div class="question">
+            <label>2. Do you prefer books with a strong element of magic or supernatural events?</label><br>
+            <input type="radio" name="q2" value="yes"> Yes
+            <input type="radio" name="q2" value="no"> No
+        </div>
 
-    for question, weight in questions:
-        answer = input(question).strip().lower()
-        if answer == 'yes':
-            positive_answers += weight
+        <div class="question">
+            <label>3. Do you like long, detailed world-building in books?</label><br>
+            <input type="radio" name="q3" value="yes"> Yes
+            <input type="radio" name="q3" value="no"> No
+        </div>
 
-    interest_percentage = (positive_answers / total_questions) * 100
+        <div class="question">
+            <label>4. Are you a fan of stories set in completely fictional worlds?</label><br>
+            <input type="radio" name="q4" value="yes"> Yes
+            <input type="radio" name="q4" value="no"> No
+        </div>
 
-    print(f"Your interest in fantasy books is: {interest_percentage:.2f}%")
+        <div class="question">
+            <label>5. Do you enjoy epic battles between good and evil?</label><br>
+            <input type="radio" name="q5" value="yes"> Yes
+            <input type="radio" name="q5" value="no"> No
+        </div>
 
-    if interest_percentage >= 75:
-        print("You really enjoy fantasy books!")
-    elif 50 <= interest_percentage < 75:
-        print("You like fantasy books, but maybe not all of them.")
-    elif 25 <= interest_percentage < 50:
-        print("You have a moderate interest in fantasy books.")
-    else:
-        print("You might not be a big fan of fantasy books.")
+        <div class="question">
+            <label>6. Would you be interested in reading about mystical adventures and quests?</label><br>
+            <input type="radio" name="q6" value="yes"> Yes
+            <input type="radio" name="q6" value="no"> No
+        </div>
 
-fantasy_quiz()
+        <div class="question">
+            <label>7. Are you familiar with popular fantasy book series like 'Harry Potter' or 'Lord of the Rings'?</label><br>
+            <input type="radio" name="q7" value="yes"> Yes
+            <input type="radio" name="q7" value="no"> No
+        </div>
+
+        <div class="question">
+            <label>8. Do you enjoy reading books with heroes who are often ‘chosen ones’ or have special abilities?</label><br>
+            <input type="radio" name="q8" value="yes"> Yes
+            <input type="radio" name="q8" value="no"> No
+        </div>
+
+        <button type="button" onclick="calculateResult()">Submit</button>
+    </form>
+
+    <div id="result" class="result" style="display:none;">
+        <h3>Your Interest in Fantasy Books:</h3>
+        <p id="score"></p>
+        <p id="feedback"></p>
+
+            <script>
+        function calculateResult() {
+            var totalQuestions = 8;
+            var positiveAnswers = 0;
+
+            // Get answers from the form
+            for (var i = 1; i <= totalQuestions; i++) {
+                var answer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (answer && answer.value === "yes") {
+                    positiveAnswers++;
+                }
+            }
+
+            // Calculate percentage
+            var interestPercentage = (positiveAnswers / totalQuestions) * 100;
+
+            // Display result
+            document.getElementById("quizForm").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("score").textContent = `Your interest in fantasy books is: ${interestPercentage.toFixed(2)}%`;
+
+            var feedback = "";
+            if (interestPercentage >= 75) {
+                feedback = "You really enjoy fantasy books!";
+            } else if (interestPercentage >= 50) {
+                feedback = "You like fantasy books, but maybe not all of them.";
+            } else if (interestPercentage >= 25) {
+                feedback = "You have a moderate interest in fantasy books.";
+            } else {
+                feedback = "You might not be a big fan of fantasy books.";
+            }
+
+            document.getElementById("feedback").textContent = feedback;
+        }
 
     </div>
 
