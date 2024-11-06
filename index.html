@@ -66,42 +66,7 @@
         <h3>Your Interest in Fantasy Books:</h3>
         <p id="score"></p>
         <p id="feedback"></p>
-
-            <script>
-        function calculateResult() {
-            var totalQuestions = 8;
-            var positiveAnswers = 0;
-
-            // Get answers from the form
-            for (var i = 1; i <= totalQuestions; i++) {
-                var answer = document.querySelector(`input[name="q${i}"]:checked`);
-                if (answer && answer.value === "yes") {
-                    positiveAnswers++;
-                }
-            }
-
-            // Calculate percentage
-            var interestPercentage = (positiveAnswers / totalQuestions) * 100;
-
-            // Display result
-            document.getElementById("quizForm").style.display = "none";
-            document.getElementById("result").style.display = "block";
-            document.getElementById("score").textContent = `Your interest in fantasy books is: ${interestPercentage.toFixed(2)}%`;
-
-            var feedback = "";
-            if (interestPercentage >= 75) {
-                feedback = "You really enjoy fantasy books!";
-            } else if (interestPercentage >= 50) {
-                feedback = "You like fantasy books, but maybe not all of them.";
-            } else if (interestPercentage >= 25) {
-                feedback = "You have a moderate interest in fantasy books.";
-            } else {
-                feedback = "You might not be a big fan of fantasy books.";
-            }
-
-            document.getElementById("feedback").textContent = feedback;
-        }
-
+    </div>
     </div>
 
 
