@@ -8,7 +8,52 @@
       <header>
           <h1>Page Turnr</h1>
       </header>
+
+
+
+      
+    <div class="Fantasy">
+          def fantasy_quiz():
+    print("Fantasy Books")
+    print("Answer the following questions to determine how much you like fantasy books.\n")
+
+    questions = [
+        ("Do you enjoy reading about magical creatures like dragons, elves, and unicorns? (yes/no): ", 1),
+        ("Do you enjoy books with magic and/or supernatural events? (yes/no): ", 1),
+        ("Would you be interested in reading about mystical adventures and quests? (yes/no): ", 1),
+        ("Do you enjoy reading books with heroes who are often ‘chosen ones’ or have special abilities? (yes/no): ", 1)
+    ]
     
+    total_questions = len(questions)
+    positive_answers = 0
+
+    for question, weight in questions:
+        answer = input(question).strip().lower()
+        if answer == 'yes':
+            positive_answers += weight
+
+    interest_percentage = (positive_answers / total_questions) * 100
+
+    print(f"Your interest in fantasy books is: {interest_percentage:.2f}%")
+
+    if interest_percentage >= 75:
+        print("You really enjoy fantasy books!")
+    elif 50 <= interest_percentage < 75:
+        print("You like fantasy books, but maybe not all of them.")
+    elif 25 <= interest_percentage < 50:
+        print("You have a moderate interest in fantasy books.")
+    else:
+        print("You might not be a big fan of fantasy books.")
+
+fantasy_quiz()
+
+    </div>
+
+
+
+
+      
+      
       <footer>
           <p>Last updated on 11/6/24</p>
       </footer>
