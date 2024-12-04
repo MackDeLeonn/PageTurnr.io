@@ -1,80 +1,96 @@
-<!DOCTYPE html>
+ ​​<!DOCTYPE html>
 <html lang="en">
 <head>
-     <link rel="stylesheet" href="styles.css">
-    <title>Book Recommendation Test</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Book Recommendation Quiz</h1>
-        <form id="quiz-form">
-            <div class="question">
-                <label for="genre">What genre do you prefer?</label><br>
-                <input type="radio" name="genre" value="fiction"> Fiction<br>
-                <input type="radio" name="genre" value="non-fiction"> Non-fiction<br>
-                <input type="radio" name="genre" value="fantasy"> Fantasy<br>
-                <input type="radio" name="genre" value="mystery"> Mystery<br>
-            </div>
-
-            <div class="question">
-                <label for="mood">What kind of mood are you in?</label><br>
-                <input type="radio" name="mood" value="happy"> Happy<br>
-                <input type="radio" name="mood" value="sad"> Sad<br>
-                <input type="radio" name="mood" value="adventure"> Adventure<br>
-                <input type="radio" name="mood" value="calm"> Calm<br>
-            </div>
-
-            <div class="question">
-                <label for="length">How long would you like the book to be?</label><br>
-                <input type="radio" name="length" value="short"> Short (under 200 pages)<br>
-                <input type="radio" name="length" value="medium"> Medium (200-400 pages)<br>
-                <input type="radio" name="length" value="long"> Long (400+ pages)<br>
-            </div>
-
-            <button type="submit">Get Recommendations</button>
-        </form>
-
-        <div class="result" id="result">
-            <h3>Your Book Recommendations:</h3>
-            <div class="book-recommendations" id="book-recommendations"></div>
+  
+  <body>
+      <header>
+          <h1>Page Turnr</h1>
+      </header>
+      
+    <div class="Fantasy">
+            <form id="quizForm">
+        <div class="question">
+            <label>1. Do you enjoy reading about magical creatures like dragons, elves, and unicorns?</label><br>
+            <input type="radio" name="q1" value="yes"> Yes
+            <input type="radio" name="q1" value="no"> No
         </div>
-    </div>
 
-    <script>
-        const form = document.getElementById('quiz-form');
-        const resultDiv = document.getElementById('result');
-        const bookRecommendationsDiv = document.getElementById('book-recommendations');
+        <div class="question">
+            <label>2. Do you enjoy books with a strong element of magic or supernatural events?</label><br>
+            <input type="radio" name="q2" value="yes"> Yes
+            <input type="radio" name="q2" value="no"> No
+        </div>
 
-        const recommendations = {
-            'fiction-happy-short': ['"The Alchemist" by Paulo Coelho', '"The Great Gatsby" by F. Scott Fitzgerald'],
-            'fiction-happy-medium': ['"Pride and Prejudice" by Jane Austen', '"The Catcher in the Rye" by J.D. Salinger'],
-            'fiction-happy-long': ['"To Kill a Mockingbird" by Harper Lee', '"The Lord of the Rings" by J.R.R. Tolkien'],
-            'fiction-sad-short': ['"Of Mice and Men" by John Steinbeck', '"The Little Prince" by Antoine de Saint-Exupéry'],
-            'fiction-sad-medium': ['"1984" by George Orwell', '"Brave New World" by Aldous Huxley'],
-            'fiction-sad-long': ['"Les Misérables" by Victor Hugo', '"Moby Dick" by Herman Melville'],
-            'non-fiction-adventure-medium': ['"Sapiens" by Yuval Noah Harari', '"Into the Wild" by Jon Krakauer'],
-            'fantasy-calm-short': ['"The Hobbit" by J.R.R. Tolkien', '"Coraline" by Neil Gaiman'],
-            'mystery-adventure-long': ['"The Girl with the Dragon Tattoo" by Stieg Larsson', '"The Da Vinci Code" by Dan Brown'],
-            // You can expand these options with more combinations
-        };
+        <div class="question">
+            <label>3. Would you be interested in reading about mystical adventures and quests?</label><br>
+            <input type="radio" name="q3" value="yes"> Yes
+            <input type="radio" name="q3" value="no"> No
+        </div>
 
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
+        <div class="question">
+            <label>4. Do you enjoy reading books with heroes who are often ‘chosen ones’ or have special abilities?</label><br>
+            <input type="radio" name="q4" value="yes"> Yes
+            <input type="radio" name="q4" value="no"> No
+        </div>
+                
+        <div class="question">
+            <label>5. Do you enjoy books that are taken in completely fictional worlds</label><br>
+            <input type="radio" name="q5" value="yes"> Yes
+            <input type="radio" name="q5" value="no"> No
+        </div>
 
-            const genre = form.querySelector('input[name="genre"]:checked')?.value;
-            const mood = form.querySelector('input[name="mood"]:checked')?.value;
-            const length = form.querySelector('input[name="length"]:checked')?.value;
+        <button type="button" onclick="calculateResult()">Submit</button>
+        </form>
+    
+        <div id="result" class="result" style="display:none;">
+            <h3>Your Interest in Fantasy Books:</h3>
+            <p id="score"></p>
+            <p id="feedback"></p>
+        </div>
+</div>
 
-            if (genre && mood && length) {
-                const key = `${genre}-${mood}-${length}`;
-                const books = recommendations[key] || ['Sorry, no recommendations available for this combination.'];
+            <script>
+        function calculateResult() {
+            var totalQuestions = 8;
+            var positiveAnswers = 0;
 
-                bookRecommendationsDiv.innerHTML = `<ul>${books.map(book => `<li><a href="#">${book}</a></li>`).join('')}</ul>`;
-                resultDiv.style.display = 'block';
-            } else {
-                alert('Please answer all questions to get recommendations.');
+            // Get answers from the form
+            for (var i = 1; i <= totalQuestions; i++) {
+                var answer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (answer && answer.value === "yes") {
+                    positiveAnswers++;
+                }
             }
-        });
-    </script>
-</body>
+
+            // Calculate percentage
+            var interestPercentage = (positiveAnswers / totalQuestions) * 100;
+
+            // Display result
+            document.getElementById("quizForm").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("score").textContent = `Your interest in fantasy books is: ${interestPercentage.toFixed(2)}%`;
+
+            var feedback = "";
+            if (interestPercentage >= 75) {
+                feedback = "You really enjoy fantasy books!";
+            } else if (interestPercentage >= 50) {
+                feedback = "You like fantasy books, but maybe not all of them.";
+            } else if (interestPercentage >= 25) {
+                feedback = "You have a moderate interest in fantasy books.";
+            } else {
+                feedback = "You might not be a big fan of fantasy books.";
+            }
+
+            document.getElementById("feedback").textContent = feedback;
+        }
+            </script>
+      <footer>
+          <p>Last updated on 11/6/24</p>
+      </footer>
+              <a href="https://mackdeleonn.github.io/ProjectProposal.io/">
+        <button>Project Proposal</button>
+    </a>
+  </body>
 </html>
