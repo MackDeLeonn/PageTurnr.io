@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question label {
+            font-size: 1.2em;
+        }
+        .question input {
+            margin-right: 10px;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+            border-radius: 5px;
+            display: none;
+        }
+        .book-recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .book-recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+        .book-recommendations li {
+            margin: 10px 0;
+        }
+        .book-recommendations a {
+            text-decoration: none;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Recommendation Quiz</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <label for="genre">What genre do you prefer?</label><br>
+                <input type="radio" name="genre" value="fiction"> Fiction<br>
+                <input type="radio" name="genre" value="non-fiction"> Non-fiction<br>
+                <input type="radio" name="genre" value="fantasy"> Fantasy<br>
+                <input type="radio" name="genre" value="mystery"> Mystery<br>
+            </div>
+
+            <div class="question">
+                <label for="mood">What kind of mood are you in?</label><br>
+                <input type="radio" name="mood" value="happy"> Happy<br>
+                <input type="radio" name="mood" value="sad"> Sad<br>
+                <input type="radio" name="mood" value="adventure"> Adventure<br>
+                <input type="radio" name="mood" value="calm"> Calm<br>
+            </div>
+
+            <div class="question">
+                <label for="length">How long would you like the book to be?</label><br>
+                <input type="radio" name="length" value="short"> Short (under 200 pages)<br>
+                <input type="radio" name="length" value="medium"> Medium (200-400 pages)<br>
+                <input type="radio" name="length" value="long"> Long (400+ pages)<br>
+            </div>
+
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        <div class="result" id="result">
+            <h3>Your Book Recommendations:</h3>
+            <div class="book-recommendations" id="book-recommendations"></div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('quiz-form');
+        const resultDiv = document.getElementById('result');
+        const bookRecommendationsDiv = document.getElementById('book-recommendations');
+
+        const recommendations = {
+            'fiction-happy-short': ['"The Alchemist" by Paulo Coelho', '"The Great Gatsby" by F. Scott Fitzgerald'],
+            'fiction-happy-medium': ['"Pride and Prejudice" by Jane Austen', '"The Catcher in the Rye" by J.D. Salinger'],
+            'fiction-happy-long': ['"To Kill a Mockingbird" by Harper Lee', '"The Lord of the Rings" by J.R.R. Tolkien'],
+            'fiction-sad-short': ['"Of Mice and Men" by John Steinbeck', '"The Little Prince" by Antoine de Saint-Exupéry'],
+            'fiction-sad-medium': ['"1984" by George Orwell', '"Brave New World" by Aldous Huxley'],
+            'fiction-sad-long': ['"Les Misérables" by Victor Hugo', '"Moby Dick" by Herman Melville'],
+            'non-fiction-adventure-medium': ['"Sapiens" by Yuval Noah Harari', '"Into the Wild" by Jon Krakauer'],
+            'fantasy-calm-short': ['"The Hobbit" by J.R.R. Tolkien', '"Coraline" by Neil Gaiman'],
+            'mystery-adventure-long': ['"The Girl with the Dragon Tattoo" by Stieg Larsson', '"The Da Vinci Code" by Dan Brown'],
+            // You can expand these options with more combinations
+        };
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const genre = form.querySelector('input[name="genre"]:checked')?.value;
+            const mood = form.querySelector('input[name="mood"]:checked')?.value;
+            const length = form.querySelector('input[name="length"]:checked')?.value;
+
+            if (genre && mood && length) {
+                const key = `${genre}-${mood}-${length}`;
+                const books = recommendations[key] || ['Sorry, no recommendations available for this combination.'];
+
+                bookRecommendationsDiv.innerHTML = `<ul>${books.map(book => `<li><a href="#">${book}</a></li>`).join('')}</ul>`;
+                resultDiv.style.display = 'block';
+            } else {
+                alert('Please answer all questions to get recommendations.');
+            }
+        });
+    </script>
+</body>
+</html>
