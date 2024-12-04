@@ -1,3 +1,54 @@
-body{
-  text-align: center;
-}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question label {
+            font-size: 1.2em;
+        }
+        .question input {
+            margin-right: 10px;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+            border-radius: 5px;
+            display: none;
+        }
+        .book-recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f7f7f7;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .book-recommendations ul {
+            list-style: none;
+            padding: 0;
+        }
+        .book-recommendations li {
+            margin: 10px 0;
+        }
+        .book-recommendations a {
+            text-decoration: none;
+            color: #007bff;
+        }
